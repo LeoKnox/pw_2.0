@@ -2,17 +2,31 @@
 <html lang="en">
     <head>
         <title>Session</title>
+        <style>
+            body {
+                background-image:radial-gradient(red, green);
+            }
+            .messages {
+                border: 3px solid gold;
+                padding: 15px;
+                width: 600px;
+                height: 400px;
+                color: silver;
+                overflow:auto;
+            }
+        </style>
     </head>
-    <body>
+    <body onload="monsterTime()">
+        <div class="messages">
+        <form action="" method="POST">
+            <input type="hidden" class="username" value="{{ session['name']}}"/>
+            <input type="text" class="message" placeholder="Messages"/>
+            <input type="submit"/>
         <h3 style='color: #ccc;font-size:30px;'>No message yet..</h3>
         <div class="message_holder"></div>
 
-        <form action="" method="POST">
-            <input type="text" class="username" placeholder="User Name"/>
-            <input type="text" class="message" placeholder="Messages"/>
-            <input type="submit"/>
         </form>
-
+        </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
@@ -38,7 +52,7 @@
                 console.log(msg)
                 if(typeof msg.user_name !== 'undefined') {
                     $('h3').remove()
-                    $('div.message_holder').append('<div><b style="color:#000">'+msg.user_name+'</b>: '+msg.message+'</div>')
+                    $('div.message_holder').prepend('<div><b>'+msg.user_name+'</b>: '+msg.message+'</div>')
                 }
             })
             </script>
