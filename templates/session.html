@@ -2,17 +2,46 @@
 <html lang="en">
     <head>
         <title>Session</title>
+        <style>
+            body {
+                background-image:radial-gradient(red, green);
+            }
+            .messages {
+                display: inline-block;
+                border: 3px solid gold;
+                padding: 15px;
+                width: 600px;
+                height: 400px;
+                color: silver;
+                overflow:auto;
+            }
+            .stats {
+                display: inline-block;
+                vertical-align: top;
+                color: gold;
+                padding: 15px;
+            }
+        </style>
     </head>
     <body>
+        <div class="messages">
+        <form action="" method="POST">
+            <input type="hidden" class="username" value="{{ session['name']}}"/>
+            <input type="text" class="message" placeholder="Messages"/>
+            <input type="submit"/>
         <h3 style='color: #ccc;font-size:30px;'>No message yet..</h3>
         <div class="message_holder"></div>
 
-        <form action="" method="POST">
-            <input type="text" class="username" placeholder="User Name"/>
-            <input type="text" class="message" placeholder="Messages"/>
-            <input type="submit"/>
         </form>
-
+        </div>
+        <div class="stats">
+            <p>attack: <span class="atk">{{ session['atk'] }}</span></p>
+            <p>defense: <span class="def">{{ session['def'] }}</span></p>
+            <p >agility: <span class="agi">{{ session['agi'] }}</span></p>
+            <p>luck: <span class="luk">{{ session['luk'] }}</span></p>
+            <P>magic: <span class="mag">{{ session['mag'] }}</span></p><br>
+            <p>HP: <span class="hp">{{ session['hp'] }}</span></p>
+        </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
@@ -27,18 +56,21 @@
                     e.preventDefault()
                     let user_name  = $('input.username').val()
                     let user_input = $('input.message').val()
+                    var stat_data = $('.stat').text()
                     socket.emit('my event', {
                         user_name:user_name,
-                        message:user_input
+                        message:user_input,
+                        stat:stat_data
                     })
                     $('input.message').val('').focus()
                 })
             })
             socket.on('my response', function(msg) {
-                console.log(msg)
-                if(typeof msg.user_name !== 'undefined') {
-                    $('h3').remove()
-                    $('div.message_holder').append('<div><b style="color:#000">'+msg.user_name+'</b>: '+msg.message+'</div>')
+                console.log("responsese.skerelkrj") 
+                console.log(msg) 
+                if(typeof msg.user_name !== 'undefined') { $('h3').remove()
+                    $('div.message_holder').prepend('<div><b>'+msg.user_name+'</b>: '+msg.message+'</div>')
+                    $('.def').text(msg.def)
                 }
             })
             </script>
