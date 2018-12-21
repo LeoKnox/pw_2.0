@@ -4,7 +4,8 @@
         <title>Session</title>
         <style>
             body {
-                background-image:radial-gradient(red, green);
+                background-image:radial-gradient( red 40%, green,green);
+                background-size:400px 400px;
             }
             .messages {
                 display: inline-block;
@@ -34,7 +35,7 @@
             <input type="hidden" class="username" value="{{ session['name']}}"/>
             <input type="text" class="message" placeholder="Messages"/>
             <input type="submit"/>
-        <h3 style='color: #ccc;font-size:30px;'>Welcom to Holiday Quest</h3>
+        <h3 style='color: #ccc;font-size:30px;'>Welcome to Holiday Quest</h3>
         <div class="message_holder"></div>
 
         </form>
