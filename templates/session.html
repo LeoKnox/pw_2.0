@@ -21,6 +21,11 @@
                 color: gold;
                 padding: 15px;
             }
+            h2,h4 {
+                display: inline-block;
+                padding-right: 50px;
+                color:gold;
+            }
         </style>
     </head>
     <body>
@@ -29,18 +34,24 @@
             <input type="hidden" class="username" value="{{ session['name']}}"/>
             <input type="text" class="message" placeholder="Messages"/>
             <input type="submit"/>
-        <h3 style='color: #ccc;font-size:30px;'>No message yet..</h3>
+        <h3 style='color: #ccc;font-size:30px;'>Welcom to Holiday Quest</h3>
         <div class="message_holder"></div>
 
         </form>
         </div>
         <div class="stats">
+            <h2>{{ session['name'] }}</h2>
             <p>attack: <span class="atk">{{ session['atk'] }}</span></p>
             <p>defense: <span class="def">{{ session['def'] }}</span></p>
             <p >agility: <span class="agi">{{ session['agi'] }}</span></p>
             <p>luck: <span class="luk">{{ session['luk'] }}</span></p>
             <P>magic: <span class="mag">{{ session['mag'] }}</span></p><br>
             <p>HP: <span class="hp">{{ session['hp'] }}</span></p>
+        </div>
+        <div>
+            <h2>{{ session['mname'] }}</h2>
+            <h4>AC: {{ session['mac'] }}</h4>
+            <h4>HP: <span class="mhp">{{ session['mhp'] }}</span></h4>
         </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -60,7 +71,7 @@
                     socket.emit('my event', {
                         user_name:user_name,
                         message:user_input,
-                        stat:stat_data
+                        stat:user_name
                     })
                     $('input.message').val('').focus()
                 })
@@ -69,8 +80,9 @@
                 console.log("responsese.skerelkrj") 
                 console.log(msg) 
                 if(typeof msg.user_name !== 'undefined') { $('h3').remove()
+                    $('div.message_holder').prepend('<div>Dungeon: '+msg.stat+'</div>')
                     $('div.message_holder').prepend('<div><b>'+msg.user_name+'</b>: '+msg.message+'</div>')
-                    $('.def').text(msg.def)
+                    $('.mhp').text(msg.def)
                 }
             })
             </script>
