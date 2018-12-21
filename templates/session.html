@@ -21,6 +21,11 @@
                 color: gold;
                 padding: 15px;
             }
+            h2,h4 {
+                display: inline-block;
+                padding-right: 50px;
+                color:gold;
+            }
         </style>
     </head>
     <body>
@@ -35,10 +40,19 @@
         </form>
         </div>
         <div class="stats">
-            <p class="atk">attack: {{ session['atk'] }}</p>
-            <p class="def">defense: <span class="stat">{{ session['def'] }}</span></p>
-            <p>agility:</p>
-            <p>luck:</p>
+            <h2>{{ session['name'] }}</h2>
+            <h4>{{ session['class'] }}</h4>
+            <p>attack: <span class="atk">{{ session['atk'] }}</span></p>
+            <p>defense: <span class="def">{{ session['def'] }}</span></p>
+            <p >agility: <span class="agi">{{ session['agi'] }}</span></p>
+            <p>luck: <span class="luk">{{ session['luk'] }}</span></p>
+            <P>magic: <span class="mag">{{ session['mag'] }}</span></p><br>
+            <p>HP: <span class="hp">{{ session['hp'] }}</span></p>
+        </div>
+        <div>
+            <h2>{{ session['mname'] }}</h2>
+            <h4>AC: {{ session['mac'] }}</h4>
+            <h4>HP: <span class="mhp">{{ session['mhp'] }}</span></h4>
         </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -54,21 +68,21 @@
                     e.preventDefault()
                     let user_name  = $('input.username').val()
                     let user_input = $('input.message').val()
+                    var stat_data = $('.stat').text()
                     socket.emit('my event', {
                         user_name:user_name,
                         message:user_input,
-                        stat:9
+                        stat:stat_data
                     })
                     $('input.message').val('').focus()
                 })
             })
             socket.on('my response', function(msg) {
-                console.log("responsese.skerelkrj")
-                console.log(msg)
-                if(typeof msg.user_name !== 'undefined') {
-                    $('h3').remove()
+                console.log("responsese.skerelkrj") 
+                console.log(msg) 
+                if(typeof msg.user_name !== 'undefined') { $('h3').remove()
                     $('div.message_holder').prepend('<div><b>'+msg.user_name+'</b>: '+msg.message+'</div>')
-                    $('.stat').text(msg.stat)
+                    $('.mhp').text(msg.def)
                 }
             })
             </script>
