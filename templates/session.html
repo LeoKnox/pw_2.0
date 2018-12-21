@@ -7,6 +7,7 @@
                 background-image:radial-gradient(red, green);
             }
             .messages {
+                display: inline-block;
                 border: 3px solid gold;
                 padding: 15px;
                 width: 600px;
@@ -14,9 +15,15 @@
                 color: silver;
                 overflow:auto;
             }
+            .stats {
+                display: inline-block;
+                vertical-align: top;
+                color: gold;
+                padding: 15px;
+            }
         </style>
     </head>
-    <body onload="monsterTime()">
+    <body>
         <div class="messages">
         <form action="" method="POST">
             <input type="hidden" class="username" value="{{ session['name']}}"/>
@@ -26,6 +33,12 @@
         <div class="message_holder"></div>
 
         </form>
+        </div>
+        <div class="stats">
+            <p class="atk">attack: {{ session['atk'] }}</p>
+            <p class="def">defense: <span class="stat">{{ session['def'] }}</span></p>
+            <p>agility:</p>
+            <p>luck:</p>
         </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -43,16 +56,19 @@
                     let user_input = $('input.message').val()
                     socket.emit('my event', {
                         user_name:user_name,
-                        message:user_input
+                        message:user_input,
+                        stat:9
                     })
                     $('input.message').val('').focus()
                 })
             })
             socket.on('my response', function(msg) {
+                console.log("responsese.skerelkrj")
                 console.log(msg)
                 if(typeof msg.user_name !== 'undefined') {
                     $('h3').remove()
                     $('div.message_holder').prepend('<div><b>'+msg.user_name+'</b>: '+msg.message+'</div>')
+                    $('.stat').text(msg.stat)
                 }
             })
             </script>
