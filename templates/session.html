@@ -4,14 +4,13 @@
         <title>Session</title>
         <style>
             body {
-                background-image:radial-gradient( red 40%, green,green);
-                background-size:400px 400px;
+               background-color:#555; 
             }
             .messages {
                 display: inline-block;
                 border: 3px solid gold;
                 padding: 15px;
-                width: 600px;
+                width:  60%;
                 height: 400px;
                 color: silver;
                 overflow:auto;
@@ -20,6 +19,7 @@
                 display: inline-block;
                 vertical-align: top;
                 color: gold;
+                width: 30%;
                 padding: 15px;
             }
             h2,h4 {
@@ -32,7 +32,7 @@
     <body>
         <div class="messages">
         <form action="" method="POST">
-            <input type="hidden" class="username" value="{{ session['name']}}"/>
+            <input type="hidden" class="username" value="{{ char['cname']}}"/>
             <input type="text" class="message" placeholder="Messages"/>
             <input type="submit"/>
         <h3 style='color: #ccc;font-size:30px;'>Welcome to Holiday Quest</h3>
@@ -41,12 +41,12 @@
         </form>
         </div>
         <div class="stats">
-            <h2>{{ session['name'] }}</h2>
-            <p>attack: <span class="atk">{{ session['atk'] }}</span></p>
-            <p>defense: <span class="def">{{ session['def'] }}</span></p>
-            <p >agility: <span class="agi">{{ session['agi'] }}</span></p>
-            <p>luck: <span class="luk">{{ session['luk'] }}</span></p>
-            <P>magic: <span class="mag">{{ session['mag'] }}</span></p><br>
+            <h2>{{ char['cname'] }}</h2>
+            <p>attack: <span class="atk">{{char['atk']}}</span></p>
+            <p>defense: <span class="def">{{char['def']}}</span></p>
+            <p >agility: <span class="agi">{{char['agi']}}</span></p>
+            <p>luck: <span class="luk">{{char['luk']}}</span></p>
+            <P>magic: <span class="mag">{{char['mag']}}</span></p><br>
             <p>HP: <span class="hp">{{ session['hp'] }}</span></p>
         </div>
         <div>

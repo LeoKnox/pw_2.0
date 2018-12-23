@@ -13,19 +13,15 @@ def sessions():
     player = mysql.query_db('SELECT * FROM monster')
     mysql = connectToMySQL('pw2')
     dungeon = mysql.query_db('SELECT * FROM dungeon')
-    session['name'] = 'Christmas Elf'
-    session['atk'] = 7
-    session['def'] = 10
-    session['agi'] = 6
-    session['mag'] = 4
-    session['luk'] = 4
+    mysql = connectToMySQL('pw2')
+    char = mysql.query_db('SELECT * FROM chara')
     session['hp'] = 5
     session['mname'] = player[0]['name']
     session['mhp'] = player[0]['hp']
     session['mac'] = player[0]['ac']
     session['special'] = player[0]['special']
     session['room']=0
-    return render_template('session.html')
+    return render_template('session.html', char=char[0])
 
 def messageReceived(methods=['GET', 'POST']):
     print('message was received!!')
