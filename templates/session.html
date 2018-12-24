@@ -31,7 +31,7 @@
     </head>
     <body>
         <div class="messages">
-        <form action="" method="POST">
+        <form action="" method="POST" class="chat">
             <input type="hidden" class="username" value="{{ char['cname']}}"/>
             <input type="text" class="message" placeholder="Messages"/>
             <input type="submit"/>
@@ -48,6 +48,16 @@
             <p>luck: <span class="luk">{{char['luk']}}</span></p>
             <P>magic: <span class="mag">{{char['mag']}}</span></p><br>
             <p>HP: <span class="hp">{{ session['hp'] }}</span></p>
+            <br>
+            {% if session['mname'] %}
+            <form action="battle" method="POST">
+                <select>
+                    <option>attack</option>
+                    <option>defend</option>
+                </select>
+                <input type="submit" value="execute">
+            </form>
+            {% endif %}
         </div>
         <div>
             <h2>{{ session['mname'] }}</h2>
@@ -64,7 +74,7 @@
                 socket.emit( 'my event', {
                     data: 'User Connected'
                 })
-                var form = $('form').on('submit', function(e) {
+                var form = $('.chat').on('submit', function(e) {
                     e.preventDefault()
                     let user_name  = $('input.username').val()
                     let user_input = $('input.message').val()
